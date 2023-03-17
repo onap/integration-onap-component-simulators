@@ -1,2 +1,2 @@
-Flask-RESTful==0.3.8
+Flask-RESTful==0.3.9
 requests[socks]==2.24.0

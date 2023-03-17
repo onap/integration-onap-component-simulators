@@ -76,7 +76,7 @@ INSTANCE_EXAMPLE = {
 }
 
 
-@app.route('/api/multicloud-k8s/v1/v1/connectivity-info/<string:region_id>', methods=['GET', 'DELETE'])
+@app.route('/v1/connectivity-info/<string:region_id>', methods=['GET', 'DELETE'])
 def connectivity_info_get_delete(region_id):
     if request.method == 'GET':
         for conninfo in CONNECTIVITY_INFOS:
@@ -94,7 +94,7 @@ def connectivity_info_get_delete(region_id):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/connectivity-info', methods=['POST'])
+@app.route('/v1/connectivity-info', methods=['POST'])
 def connectivity_info_create():
     if request.method == 'POST':
         kubeconfig = request.files['file']
@@ -108,7 +108,7 @@ def connectivity_info_create():
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition', methods=['POST'])
+@app.route('/v1/rb/definition', methods=['POST'])
 def definition_create():
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -123,7 +123,7 @@ def definition_create():
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/content', methods=['POST'])
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/content', methods=['POST'])
 def definition_upload_artifact(rb_name, rb_version):
     if request.method == 'POST':
         data = request.data
@@ -131,7 +131,7 @@ def definition_upload_artifact(rb_name, rb_version):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>', methods=['GET', 'DELETE'])
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>', methods=['GET', 'DELETE'])
 def definition_get_delete(rb_name, rb_version):
     if request.method == 'GET':
         for rb in DEFINITIONS:
@@ -149,14 +149,14 @@ def definition_get_delete(rb_name, rb_version):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition', methods=['GET'])
+@app.route('/v1/rb/definition', methods=['GET'])
 def definition_get_all():
     if request.method == 'GET':
         return json.dumps(DEFINITIONS), http.HTTPStatus.OK
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile', methods=['POST'])
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile', methods=['POST'])
 def profile_create(**kwargs):
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -173,7 +173,7 @@ def profile_create(**kwargs):
 
 
 @app.route(
-    '/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile/<string:profile_name>/content'
+    '/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile/<string:profile_name>/content'
     , methods=['POST'])
 def profile_upload_artifact(rb_name, rb_version, profile_name):
     if request.method == 'POST':
@@ -182,7 +182,7 @@ def profile_upload_artifact(rb_name, rb_version, profile_name):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile/<string:profile_name>',
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile/<string:profile_name>',
            methods=['GET', 'DELETE'])
 def profile_get_delete(rb_name, rb_version, profile_name):
     if request.method == 'GET':
@@ -203,7 +203,7 @@ def profile_get_delete(rb_name, rb_version, profile_name):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile', methods=['GET'])
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/profile', methods=['GET'])
 def profile_get_all(rb_name, rb_version):
     if request.method == 'GET':
         profiles = []
@@ -213,7 +213,7 @@ def profile_get_all(rb_name, rb_version):
         return json.dumps(PROFILES), http.HTTPStatus.OK
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
-@app.route('/api/multicloud-k8s/v1/v1/instance', methods=['POST'])
+@app.route('/v1/instance', methods=['POST'])
 def instance_create():
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -224,7 +224,7 @@ def instance_create():
         return instance_details, http.HTTPStatus.OK
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
-@app.route('/api/multicloud-k8s/v1/v1/instance/<string:instance_id>', methods=['GET', 'DELETE'])
+@app.route('/v1/instance/<string:instance_id>', methods=['GET', 'DELETE'])
 def instance_get_delete(instance_id):
     if request.method == 'GET':
         for instance in INSTANCES:
@@ -242,14 +242,14 @@ def instance_get_delete(instance_id):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/instance', methods=['GET'])
+@app.route('/v1/instance', methods=['GET'])
 def instance_get_all():
     if request.method == 'GET':
         return json.dumps(INSTANCES), http.HTTPStatus.OK
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template',
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template',
            methods=["POST"])
 def configuration_template_create(rb_name, rb_version):
     if request.method == "POST":
@@ -260,7 +260,7 @@ def configuration_template_create(rb_name, rb_version):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template/<string:name>',
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template/<string:name>',
            methods=["GET"])
 def configuration_template_get(rb_name, rb_version, name):
     if request.method == "GET":
@@ -272,7 +272,7 @@ def configuration_template_get(rb_name, rb_version, name):
     return '', http.HTTPStatus.METHOD_NOT_ALLOWED
 
 
-@app.route('/api/multicloud-k8s/v1/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template',
+@app.route('/v1/rb/definition/<string:rb_name>/<string:rb_version>/config-template',
            methods=["GET"])
 def configuration_template_get_all(rb_name, rb_version):
     if request.method == 'GET':

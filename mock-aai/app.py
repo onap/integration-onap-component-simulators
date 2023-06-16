@@ -43,7 +43,7 @@ from resources.vnf import Vnf, VfModule, VfModuleList
 app = Flask(__name__)
 api = Api(app)
 
-API_VERSIONS_SUPPORTED = ["v16", "v20", "v23", "v26"]
+API_VERSIONS_SUPPORTED = ["v16", "v20", "v23", "v26", "v27"]
 
 def generate_urls_for_all_versions(endpoint_pattern: str) -> list:
     """Helper function.

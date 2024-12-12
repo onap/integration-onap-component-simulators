@@ -17,9 +17,9 @@ package main
 import (
 	"container/list"
 	"encoding/json"
-	"net/http"
 	"errors"
 	"io/ioutil"
+	"net/http"
 
 	"github.com/labstack/echo"
 	uuid "github.com/satori/go.uuid"
@@ -66,7 +66,7 @@ type Category struct {
 	Version        string        `json:"version"`
 }
 
-//ArtifactAdd Describes ressource component Instances artifacts in SDC
+// ArtifactAdd Describes ressource component Instances artifacts in SDC
 type ArtifactAdd struct {
 	ArtifactName  string `json:"artifactName"`
 	ArtifactLabel string `json:"artifactLabel"`
@@ -74,7 +74,7 @@ type ArtifactAdd struct {
 	Description   string `json:"description"`
 }
 
-//ComponentInstance Describes ressource component Instances in SDC
+// ComponentInstance Describes ressource component Instances in SDC
 type ComponentInstance struct {
 	UniqueID            string        `json:"uniqueId"`
 	Name                string        `json:"name"`
@@ -157,7 +157,7 @@ type DistributionIDList struct {
 	DistributionStatusOfServiceList []DistributionIDResult `json:"distributionStatusOfServiceList"`
 }
 
-//DistributionStatus format
+// DistributionStatus format
 type DistributionStatus struct {
 	OmfComponentID string `json:"omfComponentID"`
 	Timestamp      string `json:"timestamp"`
@@ -178,7 +178,7 @@ type NewUploadResult struct {
 	ArtifactName string `json:"artifactName"`
 }
 
-//Property format
+// Property format
 type Property struct {
 	Name           string `json:"name"`
 	Value          string `json:"value"`
@@ -187,7 +187,7 @@ type Property struct {
 	ParentUniqueID string `json:"parentUniqueId"`
 }
 
-//Input format
+// Input format
 type Input struct {
 	Name     string `json:"name"`
 	Value    string `json:"value"`
@@ -324,9 +324,9 @@ func postResources(c echo.Context) error {
 				Status:    "Exists"})
 		}
 	}
-	resource.ID = uuid.Must(uuid.NewV4()).String()
-	resource.InvariantID = uuid.Must(uuid.NewV4()).String()
-	resource.UniqueID = uuid.Must(uuid.NewV4()).String()
+	resource.ID = uuid.NewV4().String()
+	resource.InvariantID = uuid.NewV4().String()
+	resource.UniqueID = uuid.NewV4().String()
 	resource.Version = "0.1"
 	resource.LifecycleState = "NOT_CERTIFIED_CHECKOUT"
 	resource.DistributionStatus = "DISTRIBUTION_NOT_APPROVED"
@@ -395,7 +395,7 @@ func postAddResourceToService(c echo.Context) error {
 						rr.ResourceType == resourceAdd.OriginType {
 						if rr.ResourceType == "VF" {
 							ci := ComponentInstance{
-								UniqueID:         uuid.Must(uuid.NewV4()).String(),
+								UniqueID:         uuid.NewV4().String(),
 								Name:             resourceAdd.Name,
 								ComponentName:    resourceAdd.Name,
 								OriginType:       "VF",
@@ -428,7 +428,7 @@ func getDistribution(c echo.Context) error {
 			distributionIDResult := new(DistributionIDResult)
 			if r.DistributionStatus == "DISTRIBUTED" {
 				if len(r.DistributionID) < 1 {
-					resourceList[i].DistributionID = uuid.Must(uuid.NewV4()).String()
+					resourceList[i].DistributionID = uuid.NewV4().String()
 				}
 				distributionIDResult.DeployementStatus = "Distributed"
 				distributionIDResult.UserID = "Oper P(op0001)"
@@ -1358,8 +1358,8 @@ func getArtifactTypes(c echo.Context) error {
 
 func registerForDistribution(c echo.Context) error {
 	distributionRegistration := map[string]string{
-		"distrNotificationTopicName":"testName",
-		"distrStatusTopicName":"testTopic",
+		"distrNotificationTopicName": "testName",
+		"distrStatusTopicName":       "testTopic",
 	}
 	return c.JSON(http.StatusOK, distributionRegistration)
 }
@@ -1370,10 +1370,9 @@ func unRegisterForDistribution(c echo.Context) error {
 
 func distributionKafkaData(c echo.Context) error {
 	kafkaData := map[string]string{
-	    "kafkaBootStrapServer":"localhost:43219",
-		"distrNotificationTopicName":"SDC-DIST-NOTIF-TOPIC",
-		"distrStatusTopicName":"SDC-DIST-STATUS-TOPIC",
+		"kafkaBootStrapServer":       "localhost:43219",
+		"distrNotificationTopicName": "SDC-DIST-NOTIF-TOPIC",
+		"distrStatusTopicName":       "SDC-DIST-STATUS-TOPIC",
 	}
 	return c.JSON(http.StatusOK, kafkaData)
 }
-

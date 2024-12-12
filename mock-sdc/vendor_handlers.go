@@ -113,7 +113,7 @@ func postVendorServiceModels(c echo.Context) error {
 		return err
 	}
 
-	u1 := uuid.Must(uuid.NewV4()).String()
+	u1 := uuid.NewV4().String()
 	version := Version{
 		ID:               u1,
 		Name:             "1.0",
@@ -135,7 +135,7 @@ func postVendorServiceModels(c echo.Context) error {
 			Dirty:                false,
 		},
 	}
-	u2 := uuid.Must(uuid.NewV4()).String()
+	u2 := uuid.NewV4().String()
 	var empty struct{}
 	vendorList = append(vendorList, Vendor{
 		ID:          u2,

@@ -9,7 +9,7 @@ WORKDIR /go/src
 RUN apk add --no-cache git
 RUN go mod init onap.com/mock-clamp
 RUN go get github.com/satori/go.uuid
-RUN go get github.com/labstack/echo
+RUN go get github.com/labstack/echo@v4
 RUN go get github.com/dgrijalva/jwt-go
 
 RUN set -ex && \
